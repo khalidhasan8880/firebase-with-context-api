@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from './AuthProvider';
 
 const Login = () => {
-    const {signIn} = useContext(AuthContext)
-console.log(signIn);
+    const {signIn, googleSignIn} = useContext(AuthContext)
+
     const loginHandler = (event) => {
         event.preventDefault()
         const email = event.target.email.value
@@ -23,6 +23,14 @@ console.log(signIn);
             console.log(errorMessage);
             // ..
           });
+    }
+    const googleSignInHandler=()=>{
+        googleSignIn().then(res=>{
+            const user = res.user
+        })
+        .catch(err =>{
+            console.log(err);
+        })
     }
     return (
 
@@ -54,6 +62,7 @@ console.log(signIn);
                     </form>
                     <p className='px-3'>New to Firebase-Context? <Link className='btn btn-link' to='/register'>Sign Up</Link></p>
                 </div>
+                <button onClick={googleSignInHandler} className='btn btn-primary'>Sign with google</button>
             </div>
         </div>
 
